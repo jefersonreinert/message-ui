@@ -12,6 +12,7 @@ import {
   Section,
   Text,
 } from "@message-ui/components";
+import Link from "next/link";
 import { StatCard } from "./components/stat-card";
 import { channelMix, dauLabels, dauSeries, goals, kpis, recentActivity } from "./lib/data";
 
@@ -195,12 +196,12 @@ export default function DashboardPage() {
         </Row>
 
         <Row style={{ marginTop: 24, justifyContent: "center" }}>
-          <a
+          <Link
             href="/messages"
             className="rounded-md border border-white/12 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition hover:border-white/20 hover:bg-white/10"
           >
             Try the message attachments →
-          </a>
+          </Link>
         </Row>
       </div>
     </div>
