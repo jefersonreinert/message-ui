@@ -44,6 +44,19 @@ export const accents = {
   },
 } as const;
 
+export function stageStyle(background: string): CSSProperties {
+  return {
+    width: "100%",
+    background,
+    padding: 20,
+    boxSizing: "border-box",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+  };
+}
+
 export function surfaceStyle(background: string): CSSProperties {
   return {
     width: "100%",

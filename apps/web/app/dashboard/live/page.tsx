@@ -16,9 +16,10 @@ export default function LiveConversationPage() {
               Live conversation
             </Text>
             <Text style={bodyStyle}>
-              A scripted exchange plays automatically, with typing indicators and the same
-              attachment cards @message-ui/render exports for iMessage and WhatsApp. Send your own
-              message any time — mention "revenue", "channels", or "activity" to trigger a card.
+              A scripted exchange plays automatically, with typing indicators and the exact
+              recovery-checkin, spend-pulse, gate-change, and delivery-window cards from
+              apps/example/attachments. Send your own message any time — mention "recovery",
+              "spend", "gate", or "delivery" to trigger one.
             </Text>
           </Section>
 

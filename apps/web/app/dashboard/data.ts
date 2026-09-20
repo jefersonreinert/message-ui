@@ -26,6 +26,3 @@ export const recentActivity = [
     fallback: "RC",
   },
 ] satisfies { name: string; detail: string; fallback: string }[];
-
-export const mrrSeries = [42, 45, 48, 52, 58, 63, 68, 74, 79, 84];
-export const mrrLabels = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O"];

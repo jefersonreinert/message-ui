@@ -3,28 +3,31 @@
 import { Avatar } from "@message-ui/components";
 import { type ReactElement, useEffect, useId, useRef, useState } from "react";
 import {
-  ActivitySummaryAttachment,
-  ChannelMixAttachment,
-  RevenueCardAttachment,
+  DeliveryWindowAttachment,
+  GateChangeAttachment,
+  RecoveryCheckinAttachment,
+  SpendPulseAttachment,
 } from "../attachment-cards";
 
 type Sender = "them" | "me";
-type AttachmentKind = "revenue" | "channels" | "activity";
+type AttachmentKind = "recovery" | "spend" | "gate" | "delivery";
 
 type ThreadMessage =
   | { id: string; sender: Sender; kind: "text"; text: string }
   | { id: string; sender: Sender; kind: "attachment"; attachment: AttachmentKind };
 
 const ATTACHMENTS: Record<AttachmentKind, () => ReactElement> = {
-  revenue: RevenueCardAttachment,
-  channels: ChannelMixAttachment,
-  activity: ActivitySummaryAttachment,
+  recovery: RecoveryCheckinAttachment,
+  spend: SpendPulseAttachment,
+  gate: GateChangeAttachment,
+  delivery: DeliveryWindowAttachment,
 };
 
 const ATTACHMENT_OPTIONS: { key: AttachmentKind; label: string }[] = [
-  { key: "revenue", label: "Revenue card" },
-  { key: "channels", label: "Channel mix" },
-  { key: "activity", label: "Activity summary" },
+  { key: "recovery", label: "Recovery check-in" },
+  { key: "spend", label: "Spend pulse" },
+  { key: "gate", label: "Gate change" },
+  { key: "delivery", label: "Delivery window" },
 ];
 
 /** Scripted beats the conversation auto-plays on load — each a typing pause, then a message. */
@@ -36,18 +39,18 @@ const SCRIPT: { sender: Sender; typingMs: number; message: ThreadMessage }[] = [
       id: "s1",
       sender: "them",
       kind: "text",
-      text: "Hey — can you check today's numbers before standup?",
+      text: "Morning! How am I looking for training today?",
     },
   },
   {
     sender: "me",
     typingMs: 900,
-    message: { id: "s2", sender: "me", kind: "text", text: "On it, pulling the dashboard now." },
+    message: { id: "s2", sender: "me", kind: "text", text: "Checking your readiness now." },
   },
   {
     sender: "me",
     typingMs: 1100,
-    message: { id: "s3", sender: "me", kind: "attachment", attachment: "revenue" },
+    message: { id: "s3", sender: "me", kind: "attachment", attachment: "recovery" },
   },
   {
     sender: "them",
@@ -56,13 +59,13 @@ const SCRIPT: { sender: Sender; typingMs: number; message: ThreadMessage }[] = [
       id: "s4",
       sender: "them",
       kind: "text",
-      text: "Nice, we're ahead of pace 🎉 What's the channel split looking like?",
+      text: "Nice, feeling good then. Also — how's my spending looking this week?",
     },
   },
   {
     sender: "me",
     typingMs: 1100,
-    message: { id: "s5", sender: "me", kind: "attachment", attachment: "channels" },
+    message: { id: "s5", sender: "me", kind: "attachment", attachment: "spend" },
   },
   {
     sender: "them",
@@ -71,13 +74,13 @@ const SCRIPT: { sender: Sender; typingMs: number; message: ThreadMessage }[] = [
       id: "s6",
       sender: "them",
       kind: "text",
-      text: "WhatsApp is really picking up this month.",
+      text: "Good, under control. Any updates on my flight?",
     },
   },
   {
     sender: "me",
     typingMs: 1100,
-    message: { id: "s7", sender: "me", kind: "attachment", attachment: "activity" },
+    message: { id: "s7", sender: "me", kind: "attachment", attachment: "gate" },
   },
   {
     sender: "them",
@@ -86,7 +89,22 @@ const SCRIPT: { sender: Sender; typingMs: number; message: ThreadMessage }[] = [
       id: "s8",
       sender: "them",
       kind: "text",
-      text: "Perfect — sharing this in standup. Thanks!",
+      text: "Thanks for the heads up! Last thing — is my lunch on its way?",
+    },
+  },
+  {
+    sender: "me",
+    typingMs: 1100,
+    message: { id: "s9", sender: "me", kind: "attachment", attachment: "delivery" },
+  },
+  {
+    sender: "them",
+    typingMs: 700,
+    message: {
+      id: "s10",
+      sender: "them",
+      kind: "text",
+      text: "Perfect, that's everything. Thanks!",
     },
   },
 ];
@@ -100,9 +118,10 @@ const AUTO_REPLIES = [
 
 function keywordReply(text: string): AttachmentKind | null {
   const t = text.toLowerCase();
-  if (t.includes("revenue") || t.includes("mrr") || t.includes("money")) return "revenue";
-  if (t.includes("channel") || t.includes("distribution")) return "channels";
-  if (t.includes("activity") || t.includes("summary") || t.includes("goal")) return "activity";
+  if (t.includes("recover") || t.includes("sleep") || t.includes("readiness")) return "recovery";
+  if (t.includes("spend") || t.includes("budget") || t.includes("money")) return "spend";
+  if (t.includes("gate") || t.includes("flight") || t.includes("boarding")) return "gate";
+  if (t.includes("deliver") || t.includes("order") || t.includes("eta")) return "delivery";
   return null;
 }
 
@@ -238,7 +257,7 @@ export function LiveConversation() {
             onKeyDown={(e) => {
               if (e.key === "Enter") sendText();
             }}
-            placeholder="Message — try mentioning “revenue” or “channels”"
+            placeholder="Message — try mentioning “recovery”, “spend”, “gate”, or “delivery”"
             className="flex-1 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-white/25 focus:outline-none"
           />
           <button
