@@ -36,10 +36,7 @@ export function ExamplesGallery() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
       {EXAMPLES.map((example) => (
-        <div
-          key={example.file}
-          className="overflow-hidden border border-white/6 bg-white/2"
-        >
+        <div key={example.file} className="overflow-hidden border border-white/6 bg-white/2">
           <div className="border-b border-white/6 px-4 py-3">
             <div className="font-mono text-[11px] text-zinc-500">{example.file}</div>
             <h3 className="mt-2 text-lg font-semibold text-white">{example.title}</h3>

@@ -52,6 +52,7 @@
       "name": "web",
       "version": "0.1.0",
       "dependencies": {
+        "@message-ui/components": "workspace:*",
         "geist": "^1.7.1",
         "next": "16.2.6",
         "react": "19.2.6",

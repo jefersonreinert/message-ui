@@ -1,7 +1,7 @@
 import { CodePreviewShowcase } from "./components/code-preview-showcase";
 import { CopyButton } from "./components/copy-button";
 import { ExamplesGallery } from "./components/examples-gallery";
-import { Logo } from "./components/logo";
+import { SiteHeader } from "./components/site-header";
 
 const INSTALL = "npm install @message-ui/render @message-ui/components @message-ui/tailwind";
 const DEV = "npx message-ui dev --dir ./attachments";
@@ -9,29 +9,7 @@ const DEV = "npx message-ui dev --dir ./attachments";
 export default function Home() {
   return (
     <div className="flex min-h-full flex-col bg-[#050506] text-zinc-100">
-      <header className="sticky top-0 z-50 border-b border-white/6 bg-[#050506]/85 backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-2.5">
-            <Logo />
-          </div>
-          <nav className="flex items-center gap-6 text-sm text-zinc-400">
-            <a href="#examples" className="transition hover:text-white">
-              Examples
-            </a>
-            <a href="#get-started" className="transition hover:text-white">
-              Get started
-            </a>
-            <a
-              href="https://github.com/pontusab/message-ui"
-              className="transition hover:text-white"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              GitHub
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader onHome />
 
       <main className="flex-1">
         {/* Hero: one full viewport below header; next sections start on scroll */}
@@ -47,8 +25,8 @@ export default function Home() {
               attachments
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-zinc-400 md:text-lg">
-              Build rich chat attachments with React. Develop locally, then export PNGs for iMessage,
-              WhatsApp, and more in one line of code.
+              Build rich chat attachments with React. Develop locally, then export PNGs for
+              iMessage, WhatsApp, and more in one line of code.
             </p>
 
             <div className="mt-8 flex items-center justify-center gap-3">
@@ -107,8 +85,8 @@ export default function Home() {
               Get started
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-center text-zinc-400">
-              Install the packages, then run the preview to edit templates locally and export them to
-              PNGs.
+              Install the packages, then run the preview to edit templates locally and export them
+              to PNGs.
             </p>
 
             <div className="mt-12">
@@ -139,8 +117,8 @@ export default function Home() {
               What you get
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-center text-zinc-400">
-              Primitives for attachment-style layouts, a renderer that outputs sharp PNGs, and tools to preview
-              and export—focused on this one job, not general-purpose UI.
+              Primitives for attachment-style layouts, a renderer that outputs sharp PNGs, and tools
+              to preview and export—focused on this one job, not general-purpose UI.
             </p>
 
             <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
@@ -180,8 +158,8 @@ export default function Home() {
               Fits into your stack
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-400">
-              Message UI is the attachment layer: use it alongside your chat runtime, app backend, and
-              delivery flow.
+              Message UI is the attachment layer: use it alongside your chat runtime, app backend,
+              and delivery flow.
             </p>
 
             <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -204,16 +182,20 @@ export default function Home() {
 
               <div className="border border-white/6 bg-white/2 p-6">
                 <div className="font-mono text-[11px] text-zinc-500">Channels</div>
-                <h3 className="mt-2 text-lg font-semibold text-white">iMessage, WhatsApp, and more</h3>
+                <h3 className="mt-2 text-lg font-semibold text-white">
+                  iMessage, WhatsApp, and more
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  Build once in React, then render attachments for the chat surfaces where your users
-                  already spend time.
+                  Build once in React, then render attachments for the chat surfaces where your
+                  users already spend time.
                 </p>
               </div>
 
               <div className="border border-white/6 bg-white/2 p-6">
                 <div className="font-mono text-[11px] text-zinc-500">Runtime</div>
-                <h3 className="mt-2 text-lg font-semibold text-white">CLI, jobs, or server routes</h3>
+                <h3 className="mt-2 text-lg font-semibold text-white">
+                  CLI, jobs, or server routes
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
                   Run preview locally during development, then export from app routes, workers, or
                   background jobs in production.
@@ -222,7 +204,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
       </main>
 
       <footer className="border-t border-white/6 py-10">

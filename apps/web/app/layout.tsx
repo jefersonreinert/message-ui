@@ -1,6 +1,6 @@
+import { GeistPixelLine } from "geist/font/pixel";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GeistPixelLine } from "geist/font/pixel";
 import "./globals.css";
 
 const geistSans = Geist({

@@ -61,9 +61,9 @@ export function CodePreviewShowcase() {
           What a template looks like
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-base text-zinc-400 md:text-lg">
-          A template is a small React file that renders an attachment card. In the real workflow you edit
-          the template, preview it locally, then export the same template to a PNG. Toggle to compare
-          using the <span className="text-zinc-300">Tailwind</span> wrapper vs{" "}
+          A template is a small React file that renders an attachment card. In the real workflow you
+          edit the template, preview it locally, then export the same template to a PNG. Toggle to
+          compare using the <span className="text-zinc-300">Tailwind</span> wrapper vs{" "}
           <span className="text-zinc-300">inline styles</span>.
         </p>
       </div>
