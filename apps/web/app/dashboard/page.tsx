@@ -1,10 +1,7 @@
 import {
-  ActivityRings,
   Attachment,
   Avatar,
   Column,
-  DonutChart,
-  LineChart,
   List,
   ListItem,
   Row,
@@ -14,22 +11,24 @@ import {
 import Link from "next/link";
 import { SiteHeader } from "../components/site-header";
 import {
-  accents,
   bodyStyle,
   chipStyle,
   eyebrowStyle,
   metaStyle,
   metricStyle,
   moduleStyle,
+  mono,
   palette,
   surfaceStyle,
   titleStyle,
 } from "../lib/theme";
+import { GoalsRadial } from "./charts/goals-radial";
+import { MiniLineChart } from "./charts/mini-line-chart";
+import { MonoDonut } from "./charts/mono-donut";
 import { channelMix, dauLabels, dauSeries, goals, recentActivity } from "./data";
 
 export default function DashboardPage() {
   const totalShare = channelMix.reduce((s, x) => s + x.value, 0) || 1;
-  const teal = accents.teal;
 
   return (
     <div className="flex min-h-full flex-col bg-[#050506] text-zinc-100">
@@ -44,20 +43,21 @@ export default function DashboardPage() {
             <Text style={eyebrowStyle}>Message UI</Text>
             <Text style={{ ...metricStyle, fontSize: 26, marginTop: 6 }}>Metrics dashboard</Text>
             <Text style={{ ...bodyStyle, fontSize: 14, marginTop: 2 }}>
-              Same page, same header, same design tokens as the rest of this site.
+              Same page, same header, same design tokens as the rest of this site — charts by
+              Recharts.
             </Text>
           </div>
 
           {/* Hero card — same shape as recovery-checkin.tsx */}
-          <Attachment style={{ backgroundColor: "#0a1010" }}>
+          <Attachment style={{ backgroundColor: "#0a0a0b" }}>
             <Section style={surfaceStyle(palette.panelSoft)}>
               <Section style={{ gap: 18 }}>
                 <Row
                   style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}
                 >
                   <Text style={eyebrowStyle}>Message UI · overview</Text>
-                  <div style={chipStyle(teal.chipText, teal.chipBg)}>
-                    <Text style={{ fontSize: 12, color: teal.chipText }}>All systems normal</Text>
+                  <div style={chipStyle(mono.chipText, mono.chipBg)}>
+                    <Text style={{ fontSize: 12, color: mono.chipText }}>All systems normal</Text>
                   </div>
                 </Row>
 
@@ -93,19 +93,11 @@ export default function DashboardPage() {
                 <div style={moduleStyle()}>
                   <Row style={{ justifyContent: "space-between", width: "100%", marginBottom: 10 }}>
                     <Text style={metaStyle}>Daily active users · last 12 days</Text>
-                    <Text style={{ fontSize: 12, color: teal.chipText, fontWeight: 600 }}>
+                    <Text style={{ fontSize: 12, color: mono.chipText, fontWeight: 600 }}>
                       +85%
                     </Text>
                   </Row>
-                  <LineChart
-                    series={dauSeries}
-                    width={632}
-                    height={130}
-                    color={teal.line}
-                    areaColor={teal.area}
-                    gridColor="rgba(255,255,255,0.08)"
-                    labels={dauLabels}
-                  />
+                  <MiniLineChart series={dauSeries} labels={dauLabels} width={632} height={130} />
                 </div>
 
                 <Text style={bodyStyle}>
@@ -116,7 +108,7 @@ export default function DashboardPage() {
           </Attachment>
 
           {/* Channel mix — same shape as daily-summary.tsx's donut section */}
-          <Attachment style={{ backgroundColor: "#0a1010" }}>
+          <Attachment style={{ backgroundColor: "#0a0a0b" }}>
             <Section style={surfaceStyle(palette.panelSoft)}>
               <Text style={eyebrowStyle}>Distribution</Text>
               <Row style={{ gap: 20, alignItems: "center", width: "100%", marginTop: 14 }}>
@@ -124,10 +116,15 @@ export default function DashboardPage() {
                   <Text style={{ ...titleStyle, fontSize: 18 }}>Messages by channel</Text>
                   <Text style={bodyStyle}>Share of messages delivered this month, by surface.</Text>
                   <Section style={{ gap: 6 }}>
-                    {channelMix.map((seg) => (
+                    {channelMix.map((seg, i) => (
                       <Row key={seg.name} style={{ gap: 8, alignItems: "center" }}>
                         <div
-                          style={{ width: 8, height: 8, backgroundColor: seg.color, flexShrink: 0 }}
+                          style={{
+                            width: 8,
+                            height: 8,
+                            backgroundColor: mono.shades[i % mono.shades.length],
+                            flexShrink: 0,
+                          }}
                         />
                         <Text style={metaStyle}>
                           <span style={{ color: palette.text }}>{seg.name}</span> · {seg.value}%
@@ -136,11 +133,10 @@ export default function DashboardPage() {
                     ))}
                   </Section>
                 </Column>
-                <DonutChart
+                <MonoDonut
                   segments={channelMix}
                   size={124}
                   strokeWidth={14}
-                  trackColor="#27272a"
                   centerLabel={`${totalShare}`}
                   centerSublabel="channels"
                 />
@@ -153,22 +149,30 @@ export default function DashboardPage() {
             <Section style={{ ...surfaceStyle(palette.panelSoft), alignItems: "center" }}>
               <Text style={eyebrowStyle}>Goals · today</Text>
               <div style={{ marginTop: 14 }}>
-                <ActivityRings
-                  move={goals.messages}
-                  exercise={goals.response}
-                  stand={goals.uptime}
+                <GoalsRadial
+                  metrics={[
+                    { name: "Messages sent", value: goals.messages.current },
+                    { name: "Response rate", value: goals.response.current },
+                    { name: "Uptime", value: goals.uptime.current },
+                  ]}
                   size={180}
                 />
               </div>
               <Row style={{ width: "100%", justifyContent: "space-between", marginTop: 16 }}>
                 {[
-                  { label: "Messages sent", color: "#fa114f", value: goals.messages.current },
-                  { label: "Response rate", color: "#92e82a", value: goals.response.current },
-                  { label: "Uptime", color: "#2ee7ff", value: goals.uptime.current },
-                ].map((m) => (
+                  { label: "Messages sent", value: goals.messages.current },
+                  { label: "Response rate", value: goals.response.current },
+                  { label: "Uptime", value: goals.uptime.current },
+                ].map((m, i) => (
                   <Column key={m.label} style={{ flex: 1, alignItems: "center", gap: 6 }}>
                     <Row style={{ gap: 6, alignItems: "center" }}>
-                      <div style={{ width: 8, height: 8, backgroundColor: m.color }} />
+                      <div
+                        style={{
+                          width: 8,
+                          height: 8,
+                          backgroundColor: mono.shades[i % mono.shades.length],
+                        }}
+                      />
                       <Text
                         style={{
                           fontSize: 11,

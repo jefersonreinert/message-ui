@@ -16,32 +16,18 @@ export const palette = {
   panelSoft: "rgba(255,255,255,0.02)",
 } as const;
 
-/** Accent pairs lifted directly from the real templates that use them. */
-export const accents = {
-  teal: {
-    chipText: "#7ef2d8",
-    chipBg: "rgba(45, 212, 191, 0.12)",
-    line: "#2dd4bf",
-    area: "rgba(45, 212, 191, 0.1)",
-  },
-  orange: {
-    chipText: "#fdba74",
-    chipBg: "rgba(251, 146, 60, 0.12)",
-    line: "#fb923c",
-    area: "rgba(251, 146, 60, 0.12)",
-  },
-  green: {
-    chipText: "#9df7b5",
-    chipBg: "rgba(74, 222, 128, 0.12)",
-    line: "#4ade80",
-    area: "rgba(74, 222, 128, 0.12)",
-  },
-  blue: {
-    chipText: "#a8d3ff",
-    chipBg: "rgba(96, 165, 250, 0.12)",
-    line: "#60a5fa",
-    area: "rgba(96, 165, 250, 0.12)",
-  },
+/**
+ * Monochrome tokens — a single hue (white) at different opacities, used for
+ * every chip, chart line, and series instead of per-template accent colors.
+ */
+export const mono = {
+  chipText: "#fafafa",
+  chipBg: "rgba(255,255,255,0.08)",
+  line: "#ffffff",
+  area: "rgba(255,255,255,0.14)",
+  grid: "rgba(255,255,255,0.08)",
+  /** Distinguishes series/segments by shade, darkest to lightest. */
+  shades: ["#ffffff", "rgba(255,255,255,0.68)", "rgba(255,255,255,0.42)", "rgba(255,255,255,0.22)"],
 } as const;
 
 export function stageStyle(background: string): CSSProperties {

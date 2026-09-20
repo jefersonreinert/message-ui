@@ -1,13 +1,11 @@
 export const dauSeries = [820, 902, 870, 940, 1010, 1180, 1240, 1190, 1320, 1410, 1380, 1520];
 export const dauLabels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
 
-// Colors lifted from the real templates: teal (recovery-checkin), blue (gate-change),
-// green (delivery-window), orange (spend-pulse).
 export const channelMix = [
-  { name: "In-app chat", value: 46, color: "#2dd4bf" },
-  { name: "iMessage", value: 27, color: "#60a5fa" },
-  { name: "WhatsApp", value: 18, color: "#4ade80" },
-  { name: "SMS", value: 9, color: "#fb923c" },
+  { name: "In-app chat", value: 46 },
+  { name: "iMessage", value: 27 },
+  { name: "WhatsApp", value: 18 },
+  { name: "SMS", value: 9 },
 ];
 
 export const goals = {

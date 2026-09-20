@@ -1,4 +1,6 @@
-import { Attachment, LineChart, Row, Section, Text } from "@message-ui/components";
+"use client";
+
+import { Attachment, Row, Section, Text } from "@message-ui/components";
 import {
   bodyStyle,
   chipStyle,
@@ -6,17 +8,19 @@ import {
   metaStyle,
   metricStyle,
   moduleStyle,
+  mono,
   palette,
   stageStyle,
   surfaceStyle,
   titleStyle,
 } from "../lib/theme";
+import { MiniLineChart } from "./charts/mini-line-chart";
 
 /**
  * Live-chat attachment cards ported directly from the real templates in
- * apps/example/attachments/*.tsx — same shared.ts tokens, same structure,
- * same colors and charts, just scaled to fit a ~300px chat bubble instead of
- * an 800px exported PNG.
+ * apps/example/attachments/*.tsx — same shared.ts tokens and structure,
+ * recolored monochrome and charted with Recharts instead of per-template
+ * accent colors and the built-in SVG LineChart.
  */
 
 export function RecoveryCheckinAttachment() {
@@ -25,13 +29,13 @@ export function RecoveryCheckinAttachment() {
   const readinessLabels = ["M", "T", "W", "T", "F", "S", "S"];
 
   return (
-    <Attachment style={stageStyle("#0a1010")}>
+    <Attachment style={stageStyle("#0a0a0b")}>
       <Section style={surfaceStyle("rgba(255,255,255,0.02)")}>
         <Section style={{ gap: 12 }}>
           <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <Text style={eyebrowStyle}>Recovery check-in</Text>
-            <div style={chipStyle("#7ef2d8", "rgba(45, 212, 191, 0.12)")}>
-              <Text style={{ fontSize: 11, color: "#7ef2d8" }}>Ready to train</Text>
+            <div style={chipStyle(mono.chipText, mono.chipBg)}>
+              <Text style={{ fontSize: 11, color: mono.chipText }}>Ready to train</Text>
             </div>
           </Row>
 
@@ -62,14 +66,11 @@ export function RecoveryCheckinAttachment() {
 
           <div style={{ ...moduleStyle(), padding: 12 }}>
             <Text style={{ ...metaStyle, marginBottom: 8 }}>Last 7 days</Text>
-            <LineChart
+            <MiniLineChart
               series={readinessSeries}
+              labels={readinessLabels}
               width={260}
               height={72}
-              color="#2dd4bf"
-              areaColor="rgba(45, 212, 191, 0.1)"
-              gridColor="rgba(255,255,255,0.08)"
-              labels={readinessLabels}
             />
           </div>
 
@@ -87,13 +88,13 @@ export function SpendPulseAttachment() {
   const spendLabels = ["M", "T", "W", "T", "F", "S", "S"];
 
   return (
-    <Attachment style={stageStyle("#120d0a")}>
+    <Attachment style={stageStyle("#0a0a0b")}>
       <Section style={surfaceStyle("rgba(255,255,255,0.02)")}>
         <Section style={{ gap: 12 }}>
           <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <Text style={eyebrowStyle}>Weekly spend pulse</Text>
-            <div style={chipStyle("#fdba74", "rgba(251, 146, 60, 0.12)")}>
-              <Text style={{ fontSize: 11, color: "#fdba74" }}>Budget on track</Text>
+            <div style={chipStyle(mono.chipText, mono.chipBg)}>
+              <Text style={{ fontSize: 11, color: mono.chipText }}>Budget on track</Text>
             </div>
           </Row>
 
@@ -124,15 +125,7 @@ export function SpendPulseAttachment() {
 
           <div style={{ ...moduleStyle(), padding: 12 }}>
             <Text style={{ ...metaStyle, marginBottom: 8 }}>Daily spend trend</Text>
-            <LineChart
-              series={spendSeries}
-              width={260}
-              height={72}
-              color="#fb923c"
-              areaColor="rgba(251, 146, 60, 0.12)"
-              gridColor="rgba(255,255,255,0.08)"
-              labels={spendLabels}
-            />
+            <MiniLineChart series={spendSeries} labels={spendLabels} width={260} height={72} />
           </div>
 
           <Text style={{ ...bodyStyle, fontSize: 13 }}>
@@ -146,13 +139,13 @@ export function SpendPulseAttachment() {
 
 export function GateChangeAttachment() {
   return (
-    <Attachment style={stageStyle("#0d0f14")}>
+    <Attachment style={stageStyle("#0a0a0b")}>
       <Section style={surfaceStyle("rgba(255,255,255,0.02)")}>
         <Section style={{ gap: 12 }}>
           <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <Text style={eyebrowStyle}>Travel update</Text>
-            <div style={chipStyle("#a8d3ff", "rgba(96, 165, 250, 0.12)")}>
-              <Text style={{ fontSize: 11, color: "#a8d3ff" }}>Gate changed</Text>
+            <div style={chipStyle(mono.chipText, mono.chipBg)}>
+              <Text style={{ fontSize: 11, color: mono.chipText }}>Gate changed</Text>
             </div>
           </Row>
 
@@ -203,13 +196,13 @@ export function DeliveryWindowAttachment() {
   const activeStage = 2;
 
   return (
-    <Attachment style={stageStyle("#0b120d")}>
+    <Attachment style={stageStyle("#0a0a0b")}>
       <Section style={surfaceStyle("rgba(255,255,255,0.02)")}>
         <Section style={{ gap: 12 }}>
           <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <Text style={eyebrowStyle}>Delivery window</Text>
-            <div style={chipStyle("#9df7b5", "rgba(74, 222, 128, 0.12)")}>
-              <Text style={{ fontSize: 11, color: "#9df7b5" }}>On route</Text>
+            <div style={chipStyle(mono.chipText, mono.chipBg)}>
+              <Text style={{ fontSize: 11, color: mono.chipText }}>On route</Text>
             </div>
           </Row>
 
@@ -244,7 +237,7 @@ export function DeliveryWindowAttachment() {
                       style={{
                         width: "100%",
                         height: 8,
-                        backgroundColor: active ? "#4ade80" : "rgba(255,255,255,0.08)",
+                        backgroundColor: active ? palette.text : "rgba(255,255,255,0.08)",
                       }}
                     />
                     <Text
