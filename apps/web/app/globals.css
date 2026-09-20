@@ -13,6 +13,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-pixel: var(--font-geist-pixel-line);
+  --font-serif: var(--font-hedvig-serif);
 }
 
 body {

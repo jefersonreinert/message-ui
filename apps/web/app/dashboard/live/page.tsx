@@ -6,7 +6,7 @@ import { LiveConversation } from "./conversation";
 export default function LiveConversationPage() {
   return (
     <div className="flex min-h-full flex-col bg-[#050506] text-zinc-100">
-      <SiteHeader />
+      <SiteHeader appHeader />
 
       <main className="flex-1">
         <div className="mx-auto max-w-2xl px-5 py-10">

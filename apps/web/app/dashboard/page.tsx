@@ -10,6 +10,7 @@ import {
 } from "@message-ui/components";
 import Link from "next/link";
 import { SiteHeader } from "../components/site-header";
+import { WelcomeGreeting } from "../components/welcome-greeting";
 import {
   bodyStyle,
   chipStyle,
@@ -32,13 +33,20 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-full flex-col bg-[#050506] text-zinc-100">
-      <SiteHeader />
+      <SiteHeader appHeader />
 
       <main className="flex-1">
         <div
           className="mx-auto max-w-3xl px-5 py-10"
           style={{ display: "flex", flexDirection: "column", gap: 16 }}
         >
+          <div className="py-6">
+            <WelcomeGreeting
+              name="Jeferson"
+              subtext="You're all caught up. Nothing needs your attention right now."
+            />
+          </div>
+
           <div style={{ padding: "8px 4px 4px" }}>
             <Text style={eyebrowStyle}>Message UI</Text>
             <Text style={{ ...metricStyle, fontSize: 26, marginTop: 6 }}>Metrics dashboard</Text>

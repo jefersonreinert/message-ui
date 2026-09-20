@@ -87,3 +87,12 @@ export function IconChevronDown({ className }: IconProps) {
     </svg>
   );
 }
+
+export function IconBell({ className }: IconProps) {
+  return (
+    <svg {...base} aria-hidden="true" className={className}>
+      <path d="M18 16v-5a6 6 0 1 0-12 0v5l-1.5 2.5h15L18 16Z" />
+      <path d="M10 21a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}

@@ -37,9 +37,9 @@ export function MobileNav({ onHome = false }: { onHome?: boolean }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="flex h-9 w-9 items-center justify-center text-zinc-400 transition hover:text-white md:hidden"
+        className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/12 text-zinc-300 transition hover:bg-white/5 hover:text-white md:hidden"
       >
-        <IconMenu />
+        <IconMenu className="h-4 w-4" />
       </button>
 
       {open &&
@@ -49,10 +49,10 @@ export function MobileNav({ onHome = false }: { onHome?: boolean }) {
               type="button"
               aria-label="Close menu"
               onClick={() => setOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/60"
             />
-            <div className="relative flex h-full w-[280px] flex-col border-r border-white/8 bg-[#050506] px-4 py-5">
-              <div className="flex items-center justify-between px-1">
+            <div className="relative flex h-full w-3/4 max-w-sm flex-col overflow-hidden border-r border-white/10 bg-[#0c0c0c] p-6">
+              <div className="flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
                   <Logo />
                 </Link>
