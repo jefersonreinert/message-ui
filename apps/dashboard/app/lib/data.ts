@@ -1,10 +1,3 @@
-export const kpis = [
-  { label: "MRR", value: "$84.2k", hint: "+12.4% vs last month", accent: "#4ade80" },
-  { label: "Active users", value: "12,948", hint: "+3.1% vs last week", accent: "#38bdf8" },
-  { label: "Messages sent", value: "428,110", hint: "last 30 days", accent: "#a78bfa" },
-  { label: "Uptime", value: "99.98%", hint: "90-day rolling", accent: "#f472b6" },
-] satisfies { label: string; value: string; hint: string; accent: string }[];
-
 export const dauSeries = [820, 902, 870, 940, 1010, 1180, 1240, 1190, 1320, 1410, 1380, 1520];
 export const dauLabels = [
   "1",
@@ -21,11 +14,13 @@ export const dauLabels = [
   "12",
 ] satisfies string[];
 
+// Colors lifted from the real templates: teal (recovery-checkin), blue (gate-change),
+// green (delivery-window), orange (spend-pulse).
 export const channelMix = [
-  { name: "In-app chat", value: 46, color: "#38bdf8" },
-  { name: "iMessage", value: 27, color: "#a78bfa" },
+  { name: "In-app chat", value: 46, color: "#2dd4bf" },
+  { name: "iMessage", value: 27, color: "#60a5fa" },
   { name: "WhatsApp", value: 18, color: "#4ade80" },
-  { name: "SMS", value: 9, color: "#f472b6" },
+  { name: "SMS", value: 9, color: "#fb923c" },
 ];
 
 export const goals = {

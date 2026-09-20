@@ -128,7 +128,7 @@ function MessageBubble({ message }: { message: ThreadMessage }) {
     const Card = option.render;
     return (
       <div className={`flex ${mine ? "justify-end" : "justify-start"} bubble-in`}>
-        <div className="max-w-[340px] overflow-hidden rounded-2xl">
+        <div className="max-w-[340px] overflow-hidden">
           <Card />
         </div>
       </div>

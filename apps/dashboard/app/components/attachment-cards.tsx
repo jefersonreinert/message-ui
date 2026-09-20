@@ -1,56 +1,64 @@
 import {
   Attachment,
   Column,
-  Divider,
   DonutChart,
-  Heading,
   LineChart,
   Row,
   Section,
   Text,
 } from "@message-ui/components";
 import { channelMix, mrrLabels, mrrSeries } from "../lib/data";
+import {
+  accents,
+  bodyStyle,
+  chipStyle,
+  eyebrowStyle,
+  metaStyle,
+  metricStyle,
+  moduleStyle,
+  palette,
+  titleStyle,
+} from "../lib/theme";
 
 /**
- * Chat attachment cards, built from the same @message-ui/components primitives
- * used by @message-ui/render to export PNGs for iMessage/WhatsApp — here they're
- * rendered live in the browser instead of exported to a static image.
+ * Chat attachment cards, styled identically to the real message-ui templates
+ * (apps/example/attachments/*.tsx) — same palette tokens, same eyebrow/chip/
+ * metric/module structure, same accent colors per domain.
  */
 
 export function RevenueCardAttachment() {
+  const orange = accents.orange;
   return (
     <Attachment
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "#120d0a",
         padding: 18,
         width: 320,
         boxSizing: "border-box",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#1e293b",
-        borderRadius: 16,
+        borderColor: palette.borderSoft,
       }}
     >
-      <Section style={{ gap: 10 }}>
-        <Row style={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Text style={{ fontSize: 11, color: "#64748b", fontWeight: 600, letterSpacing: 0.6 }}>
-            REVENUE · OCT
-          </Text>
-          <Text style={{ fontSize: 12, color: "#4ade80", fontWeight: 600 }}>+8.6%</Text>
-        </Row>
-        <Heading level={2} style={{ color: "#f8fafc", fontSize: 24 }}>
-          $84.2k MRR
-        </Heading>
+      <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+        <Text style={eyebrowStyle}>Revenue · Oct</Text>
+        <div style={chipStyle(orange.chipText, orange.chipBg)}>
+          <Text style={{ fontSize: 11, color: orange.chipText }}>+8.6%</Text>
+        </div>
+      </Row>
+      <Text style={{ ...metricStyle, fontSize: 32, marginTop: 10 }}>$84.2k</Text>
+      <Text style={{ ...titleStyle, fontSize: 13, marginTop: 2 }}>Monthly recurring revenue</Text>
+      <div style={{ ...moduleStyle(), marginTop: 12 }}>
         <LineChart
           series={mrrSeries}
-          width={284}
-          height={90}
-          color="#38bdf8"
-          areaColor="rgba(56, 189, 248, 0.16)"
-          gridColor="#1e293b"
+          width={252}
+          height={80}
+          color={orange.line}
+          areaColor={orange.area}
+          gridColor="rgba(255,255,255,0.08)"
           labels={mrrLabels}
         />
-      </Section>
+      </div>
     </Attachment>
   );
 }
@@ -60,34 +68,32 @@ export function ChannelMixAttachment() {
   return (
     <Attachment
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "#0d0f14",
         padding: 18,
         width: 320,
         boxSizing: "border-box",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#1e293b",
-        borderRadius: 16,
+        borderColor: palette.borderSoft,
       }}
     >
-      <Row style={{ gap: 16, alignItems: "center" }}>
+      <Text style={eyebrowStyle}>Distribution</Text>
+      <Row style={{ gap: 14, alignItems: "center", width: "100%", marginTop: 12 }}>
         <DonutChart
           segments={channelMix}
           size={92}
           strokeWidth={12}
-          trackColor="#1e293b"
+          trackColor="#27272a"
           centerLabel={`${total}`}
           centerSublabel="channels"
         />
         <Column style={{ gap: 6, flex: 1 }}>
-          <Text style={{ fontSize: 11, color: "#64748b", fontWeight: 600, letterSpacing: 0.6 }}>
-            MESSAGES BY CHANNEL
-          </Text>
+          <Text style={{ ...titleStyle, fontSize: 14 }}>Messages by channel</Text>
           {channelMix.map((seg) => (
             <Row key={seg.name} style={{ gap: 6, alignItems: "center" }}>
               <div style={{ width: 7, height: 7, backgroundColor: seg.color, flexShrink: 0 }} />
-              <Text style={{ fontSize: 12, color: "#cbd5e1" }}>
-                {seg.name} · {seg.value}%
+              <Text style={metaStyle}>
+                <span style={{ color: palette.text }}>{seg.name}</span> · {seg.value}%
               </Text>
             </Row>
           ))}
@@ -98,49 +104,40 @@ export function ChannelMixAttachment() {
 }
 
 export function ActivitySummaryAttachment() {
+  const teal = accents.teal;
   return (
     <Attachment
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "#0a1010",
         padding: 18,
         width: 320,
         boxSizing: "border-box",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#1e293b",
-        borderRadius: 16,
+        borderColor: palette.borderSoft,
       }}
     >
-      <Section style={{ gap: 10 }}>
-        <Text style={{ fontSize: 11, color: "#64748b", fontWeight: 600, letterSpacing: 0.6 }}>
-          TODAY'S SUMMARY
-        </Text>
-        <Row style={{ gap: 10, width: "100%" }}>
-          {[
-            { label: "Sent", value: "12,948" },
-            { label: "Delivered", value: "99.1%" },
-            { label: "Opened", value: "68%" },
-          ].map((s) => (
-            <Column
-              key={s.label}
-              style={{
-                flex: 1,
-                backgroundColor: "#1e293b",
-                padding: 10,
-                gap: 4,
-                borderRadius: 10,
-              }}
-            >
-              <Text style={{ fontSize: 10, color: "#64748b", fontWeight: 600 }}>{s.label}</Text>
-              <Text style={{ fontSize: 16, fontWeight: 700, color: "#f1f5f9" }}>{s.value}</Text>
-            </Column>
-          ))}
-        </Row>
-        <Divider style={{ backgroundColor: "#1e293b" }} />
-        <Text style={{ fontSize: 12, color: "#94a3b8" }}>
-          Delivery window and recovery check-in templates are trending +14% week over week.
-        </Text>
-      </Section>
+      <Row style={{ justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+        <Text style={eyebrowStyle}>Today's summary</Text>
+        <div style={chipStyle(teal.chipText, teal.chipBg)}>
+          <Text style={{ fontSize: 11, color: teal.chipText }}>On track</Text>
+        </div>
+      </Row>
+      <Row style={{ gap: 8, width: "100%", marginTop: 12 }}>
+        {[
+          { label: "Sent", value: "12,948" },
+          { label: "Delivered", value: "99.1%" },
+          { label: "Opened", value: "68%" },
+        ].map((s) => (
+          <Column key={s.label} style={{ ...moduleStyle(), flex: 1, gap: 4 }}>
+            <Text style={metaStyle}>{s.label}</Text>
+            <Text style={{ fontSize: 16, fontWeight: 600, color: palette.text }}>{s.value}</Text>
+          </Column>
+        ))}
+      </Row>
+      <Text style={{ ...bodyStyle, fontSize: 13, marginTop: 12 }}>
+        Delivery window and recovery check-in templates are trending +14% week over week.
+      </Text>
     </Attachment>
   );
 }
