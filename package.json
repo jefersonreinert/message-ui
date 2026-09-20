@@ -28,6 +28,9 @@
     "example:dev": "bun run --cwd apps/example dev",
     "dev:web": "bun run --cwd apps/web dev",
     "build:web": "bun run --cwd apps/web build",
+    "dev:dashboard": "bun run --cwd apps/dashboard dev",
+    "build:dashboard": "bun run --cwd apps/dashboard build",
+    "typecheck:dashboard": "bun run --cwd apps/dashboard typecheck",
     "message-ui": "bun run --cwd packages/cli message-ui"
   },
   "devDependencies": {
